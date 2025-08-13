@@ -208,3 +208,40 @@ footer {
         font-size: 1.25rem;
     }
 }
+
+.display {
+    width: 100%;
+    height: 40px;
+    font-size: 1.5rem;
+    text-align: right;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    border: none;
+    background-color: #000000;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: rgba(255, 255, 255, 0.7);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.result-display {
+    height: 60px;
+    font-size: 2.5rem;
+    color: var(--white);
+    margin-bottom: 20px;
+    padding-top: 10px;
+}
+
+@media (max-width: 600px) {
+    .display {
+        height: 40px;
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+
+    .result-display {
+        height: 50px;
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+}

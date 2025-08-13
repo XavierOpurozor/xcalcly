@@ -11,56 +11,47 @@
     <div class="calculator-container">
         <h1 class="calculator-title">Xcalcly</h1>
         <div class="calculator">
-            <input type="text" id="display" class="display" value="" disabled>
+            <!-- New Two-line Display -->
+            <input type="text" id="expression-display" class="display" readonly placeholder="0">
+            <input type="text" id="result-display" class="display result-display" readonly placeholder="0">
+
             <div class="buttons">
-                <!-- Top Row: Inverse Trig and Memory Functions -->
+                <!-- Row 1 -->
+                <button class="button function" data-value="sin">sin</button>
+                <button class="button function" data-value="cos">cos</button>
+                <button class="button function" data-value="tan">tan</button>
+                <button class="button clear-all" data-value="AC">AC</button>
+                <button class="button delete" data-value="del">Del</button>
+                <!-- Row 2 -->
                 <button class="button function" data-value="arcsin">sin⁻¹</button>
                 <button class="button function" data-value="arccos">cos⁻¹</button>
                 <button class="button function" data-value="arctan">tan⁻¹</button>
-                <button class="button function" data-value="MC">MC</button>
-                <button class="button function" data-value="M+">M+</button>
-                
-                <!-- Second Row: Standard Functions and Memory Recall -->
-                <button class="button function" data-value="ln">ln</button>
-                <button class="button function" data-value="log">log</button>
-                <button class="button function" data-value="sin">sin</button>
-                <button class="button function" data-value="cos">cos</button>
-                <button class="button function" data-value="MR">MR</button>
-                
-                <!-- Third Row: More Functions and Basic Operators -->
-                <button class="button function" data-value="tan">tan</button>
-                <button class="button function" data-value="pow10">10ⁿ</button>
-                <button class="button function" data-value="powE">eⁿ</button>
-                <button class="button function" data-value="factorial">x!</button>
-                <button class="button clear-all" data-value="AC">AC</button>
-                
-                <!-- Number Pad Row 1 -->
+                <button class="button operator" data-value="^">^</button>
+                <button class="button operator" data-value="%">%</button>
+                <!-- Row 3 -->
                 <button class="button number" data-value="7">7</button>
                 <button class="button number" data-value="8">8</button>
                 <button class="button number" data-value="9">9</button>
                 <button class="button operator" data-value="/">/</button>
-                <button class="button delete" data-value="del">Del</button>
-                
-                <!-- Number Pad Row 2 -->
+                <button class="button function" data-value="sqrt">√</button>
+                <!-- Row 4 -->
                 <button class="button number" data-value="4">4</button>
                 <button class="button number" data-value="5">5</button>
                 <button class="button number" data-value="6">6</button>
                 <button class="button operator" data-value="*">*</button>
                 <button class="button operator" data-value="-">-</button>
-                
-                <!-- Number Pad Row 3 -->
+                <!-- Row 5 -->
                 <button class="button number" data-value="1">1</button>
                 <button class="button number" data-value="2">2</button>
                 <button class="button number" data-value="3">3</button>
                 <button class="button operator" data-value="+">+</button>
                 <button class="button equals" data-value="=">=</button>
-                
-                <!-- Bottom Row: Special Functions -->
-                <button class="button number zero" data-value="0">0</button>
-                <button class="button decimal" data-value=".">.</button>
-                <button class="button operator" data-value="(">(</button>
-                <button class="button operator" data-value=")">)</button>
+                <!-- Row 6 -->
                 <button class="button mode" data-value="mode">DEG</button>
+                <button class="button number" data-value="0">0</button>
+                <button class="button decimal" data-value=".">.</button>
+                <button class="button ans" data-value="ans">Ans</button>
+                <button class="button function" data-value="pi">π</button>
             </div>
         </div>
     </div>
@@ -70,3 +61,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+

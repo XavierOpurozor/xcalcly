@@ -2,8 +2,9 @@
 // handling all button clicks, expression evaluation, and display updates.
 
 // ==== DOM ELEMENTS ====
-// Get the calculator's display input field.
-const display = document.getElementById('display');
+// Get the calculator's display input fields.
+const expressionDisplay = document.getElementById('expression-display');
+const resultDisplay = document.getElementById('result-display');
 
 // Get all buttons using a class selector.
 const buttons = document.querySelectorAll('.buttons button');
@@ -70,9 +71,11 @@ function appendToDisplay(value) {
     if (isCalculationFinished && (/\d/.test(value) || value === '(')) {
         currentExpression = '';
         isCalculationFinished = false;
+        expressionDisplay.value = '';
+        resultDisplay.value = '';
     }
     currentExpression += value;
-    display.value = currentExpression;
+    expressionDisplay.value = currentExpression;
 }
 
 /**
@@ -80,7 +83,7 @@ function appendToDisplay(value) {
  */
 function deleteLastChar() {
     currentExpression = currentExpression.slice(0, -1);
-    display.value = currentExpression;
+    expressionDisplay.value = currentExpression;
 }
 
 /**
@@ -88,7 +91,8 @@ function deleteLastChar() {
  */
 function clearAll() {
     currentExpression = '';
-    display.value = '';
+    expressionDisplay.value = '';
+    resultDisplay.value = '';
     isCalculationFinished = false;
 }
 
@@ -149,7 +153,7 @@ function calculate() {
         const result = eval(expressionToEvaluate);
 
         // Update the display with the result, save the answer, and reset the expression.
-        display.value = result;
+        resultDisplay.value = result;
         currentExpression = String(result);
         lastAnswer = result;
         isCalculationFinished = true; // Set the flag to true after a successful calculation.
@@ -157,14 +161,14 @@ function calculate() {
     } catch (error) {
         // Provide more specific error messages for different types of errors
         if (error instanceof SyntaxError) {
-            display.value = 'Syntax Error';
+            resultDisplay.value = 'Syntax Error';
         } else if (error instanceof TypeError) {
-            display.value = 'Invalid input';
+            resultDisplay.value = 'Invalid input';
         } else if (error instanceof ReferenceError) {
-            display.value = 'Invalid expression';
+            resultDisplay.value = 'Invalid expression';
         } else {
             // For other errors, display the specific error message
-            display.value = error.message;
+            resultDisplay.value = error.message;
         }
         currentExpression = ''; // Reset the expression on error.
     }
@@ -207,16 +211,16 @@ buttons.forEach(button => {
             case 'factorial':
                 // Calculate factorial of the current number on the display
                 try {
-                    const number = parseFloat(display.value);
+                    const number = parseFloat(expressionDisplay.value);
                     if (!isNaN(number)) {
                         const result = factorial(number);
-                        display.value = result;
+                        resultDisplay.value = result;
                         currentExpression = String(result);
                         lastAnswer = result;
                         isCalculationFinished = true;
                     }
                 } catch (e) {
-                    display.value = 'Error';
+                    resultDisplay.value = 'Error';
                     currentExpression = '';
                 }
                 break;
@@ -231,10 +235,10 @@ buttons.forEach(button => {
                     const num = eval(currentExpression);
                     if (!isNaN(num)) {
                         memory += num;
-                        display.value = memory;
+                        resultDisplay.value = memory;
                     }
                 } catch (e) {
-                    display.value = 'Error';
+                    resultDisplay.value = 'Error';
                 }
                 currentExpression = '';
                 isCalculationFinished = true;
@@ -242,7 +246,7 @@ buttons.forEach(button => {
             case 'MC':
                 // Clear the memory
                 memory = 0;
-                display.value = 0;
+                resultDisplay.value = 0;
                 currentExpression = '';
                 isCalculationFinished = true;
                 break;

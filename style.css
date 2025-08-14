@@ -172,6 +172,78 @@ footer {
     width: 100%;
     margin-top: auto;
 }
+[⚠️ Suspicious Content] /* New AI Modal Styles */
+.ai-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.ai-modal-content {
+    background: #1c1c1c;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+    position: relative;
+    text-align: center;
+    color: #fff;
+}
+
+.ai-modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.ai-modal-title {
+    font-size: 2rem;
+    color: var(--electric-cyan);
+    margin-bottom: 10px;
+}
+
+.ai-suggest-btn {
+    background-color: #008080;
+    color: #fff;
+    border-radius: 25px;
+    width: auto;
+    padding: 10px 20px;
+    margin-top: 15px;
+    font-size: 1rem;
+    box-shadow: none;
+}
+
+.ai-suggest-btn:hover {
+    background-color: #006666;
+    transform: none;
+}
+
+.ai-suggestion-area {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid var(--electric-cyan);
+    border-radius: 10px;
+    background-color: rgba(0, 255, 255, 0.1);
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+    font-size: 1rem;
+}
 
 /* === Mobile responsiveness === */
 @media (max-width: 600px) {
@@ -245,3 +317,4 @@ footer {
         margin-bottom: 10px;
     }
 }
+

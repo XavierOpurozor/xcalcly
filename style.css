@@ -172,7 +172,7 @@ footer {
     width: 100%;
     margin-top: auto;
 }
-[⚠️ Suspicious Content] /* New AI Modal Styles */
+ /* New AI Modal Styles */
 .ai-modal-overlay {
     position: fixed;
     top: 0;
@@ -317,4 +317,5 @@ footer {
         margin-bottom: 10px;
     }
 }
+
 

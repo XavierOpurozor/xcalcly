@@ -9,11 +9,9 @@ const resultDisplay = document.getElementById('result-display');
 // Get all buttons using a class selector.
 const buttons = document.querySelectorAll('.buttons button');
 
-// Get the AI modal elements
+// Get the AI modal and its close button, as per user's request to keep them.
 const aiModal = document.getElementById('ai-modal');
-const aiModalCloseBtn = document.querySelector('.ai-modal-close-btn');
-const aiSuggestBtn = document.getElementById('ai-suggest-btn');
-const aiSuggestionText = document.getElementById('ai-suggestion-text');
+const aiModalCloseBtn = document.getElementById('ai-modal-close-btn');
 
 // ==== STATE VARIABLES ====
 // A string to hold the current mathematical expression.
@@ -108,12 +106,6 @@ function clearAll() {
  */
 function calculate() {
     try {
-        // The JavaScript 'eval()' function, which is used here, automatically
-        // follows the standard mathematical order of operations (BODMAS/PEMDAS),
-        // ensuring that multiplication and division are performed before
-        // addition and subtraction, and parentheses are handled first.
-        // This is how the "AI" or logic in the calculator processes the expression.
-        
         // Check for division by zero before evaluating
         if (currentExpression.includes('/0')) {
             throw new Error('Division by zero is not allowed.');
@@ -180,85 +172,21 @@ function calculate() {
     }
 }
 
-/**
- * Gets an AI-powered suggestion based on the current expression.
- */
-async function getAiSuggestion() {
-    aiSuggestionText.textContent = 'Thinking...';
-    aiSuggestBtn.disabled = true; // Disable the button while fetching
-
-    let chatHistory = [];
-    const prompt = `Based on the calculator expression '${currentExpression}', provide a very brief and simple suggestion for the next logical step. The suggestions should be one or two sentences at most. Examples of suggestions include: "Try adding a closing parenthesis.", "The next step could be to add a number.", "You could use the 'sin' function for a trigonometric calculation." If the expression is complete, suggest to press '='. If the expression is empty, suggest to type a number. The tone should be helpful and not overly technical. Only provide one suggestion.`;
-    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-    const payload = { contents: chatHistory };
-    const apiKey = "";
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-    let response;
-    let retries = 0;
-    const maxRetries = 5;
-    let delay = 1000;
-
-    // Exponential backoff for API calls
-    while (retries < maxRetries) {
-        try {
-            response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (response.status === 429) {
-                // Too many requests, retry with exponential backoff
-                await new Promise(resolve => setTimeout(resolve, delay));
-                delay *= 2;
-                retries++;
-                continue;
-            }
-
-            const result = await response.json();
-
-            if (result.candidates && result.candidates.length > 0 &&
-                result.candidates[0].content && result.candidates[0].content.parts &&
-                result.candidates[0].content.parts.length > 0) {
-                const text = result.candidates[0].content.parts[0].text;
-                aiSuggestionText.textContent = text;
-            } else {
-                aiSuggestionText.textContent = 'Could not get a suggestion. Try again.';
-            }
-            break; // Exit the loop on success
-
-        } catch (error) {
-            aiSuggestionText.textContent = 'Error: Failed to fetch suggestion.';
-            break;
-        }
-    }
-    aiSuggestBtn.disabled = false; // Re-enable the button
-}
-
 // ==== EVENT LISTENERS ====
 
-// Show the AI guidance modal on page load
+// Show the AI guidance modal on page load, as per user's request.
 window.onload = () => {
     aiModal.style.display = 'flex';
 };
 
-// Close the AI guidance modal
+// Close the AI guidance modal, as per user's request.
 aiModalCloseBtn.addEventListener('click', () => {
     aiModal.style.display = 'none';
 });
 
-// Event listener for the AI suggestion button
-aiSuggestBtn.addEventListener('click', getAiSuggestion);
-
 // Loop through all buttons and add a click event listener to each one.
 buttons.forEach(button => {
     button.addEventListener('click', () => {
-        // Close the modal if it's open after a button click
-        if (aiModal.style.display === 'flex') {
-            aiModal.style.display = 'none';
-        }
-
         // Get the value from the 'data-value' attribute.
         const value = button.getAttribute('data-value');
         const buttonText = button.textContent;
